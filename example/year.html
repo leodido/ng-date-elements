@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YearSelect Directive</title>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../dist/date-elements.min.js"></script>
+  <script>
+    var app = angular.module('app', ['leodido.dateElements']);
+    app.controller('Year01Controller', function($scope) {
+      $scope.$on('year01.selection', function(evt, data) {
+        console.log('year01.selection', data);
+      });
+    });
+  </script>
+</head>
+<body ng-app="app">
+  <form name="form">
+    <div data-ng-controller="Year01Controller">
+      <div data-year-select name="year01" data-format="yy"></div>
+      <pre>form.year01 = {{ form.year01 | json }}</pre>
+    </div>
+  </form>
+</body>
+</html>
