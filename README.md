@@ -3,6 +3,8 @@ Date elements
 
 **AngularJS select directives for date elements**.
 
+[![Bower](https://img.shields.io/bower/v/ng-date-elements.svg?style=flat-square)]()
+
 ### Directives:
 
 - MonthSelect
