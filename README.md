@@ -1,7 +1,17 @@
 Date elements
 =============
 
-*S* stands for ```{html}<select/>```.
+*AngularJS select directives for date elements**.
+
+### Directives:
+
+- MonthSelect
+- YearSelect
+
+*WIP*
+
+Usage
+-----
 
 *WIP*
 
@@ -34,16 +44,18 @@ Need help? Run `gulp help` !
 #   gulp [task]
 # 
 # Available tasks
-#   build                           Build the library 
-#    --banner                       Prepend banner to the built file
-#    --env=production|development   Kind of build to perform, defaults to production
-#   clean                           Clean build directory
-#   help                            Display this help text
-#   lint                            Lint JS source files
-#   version                         Print the library version
+#   build                                   Build the library 
+#    --banner                               Prepend banner to the built file
+#    --env=production|development           Kind of build to perform, defaults to production
+#   bump                                    Bump version up for a new release 
+#    --level=major|minor|patch|prerelease   Version level to bump
+#   clean                                   Clean build directory
+#   help                                    Display this help text
+#   lint                                    Lint JS source files
+#   version                                 Print the library version
 ```
 
-To build a development version of JS lib:
+To build a development version (logging not disabled) of JS lib:
 
 ```
 $ gulp build --env dev
@@ -54,6 +66,12 @@ Or, also:
 ```
 $ npm run development
 ```
+
+Rather to build a production ready code:
+
+```
+$ npm run production
+````
 
 ---
 
