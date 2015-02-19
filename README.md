@@ -1,7 +1,7 @@
 Date elements
 =============
 
-*AngularJS select directives for date elements**.
+**AngularJS select directives for date elements**.
 
 ### Directives:
 
