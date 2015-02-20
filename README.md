@@ -9,6 +9,7 @@ Date elements
 
 - MonthSelect
 - YearSelect
+- SelectComposite
 
 *WIP*
 
