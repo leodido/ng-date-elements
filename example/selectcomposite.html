@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SelectComposite Directive</title>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../dist/date-elements.min.js"></script>
+  <script>
+    var app = angular.module('app', ['leodido.dateElements']);
+  </script>
+</head>
+<body ng-app="app">
+
+  <div
+    name="monthyear"
+    data-select-composite
+    data-options="{month: {emptyOption: 'mese', format: 'MM'}, year: {emptyOption: 'anno', format: 'yy', first: 2010, last: 2012}}">
+    <div
+      name="month"
+      data-month-select
+      data-empty-option="{{options.month.emptyOption}}"
+      data-format="{{options.month.format}}"></div>
+    <div
+      name="year"
+      data-year-select
+      data-empty-option="{{options.year.emptyOption}}"
+      data-format="{{options.year.format}}"
+      data-first="{{options.year.first}}"
+      data-last="{{options.year.last}}"></div>
+  </div>
+
+</body>
+</html>

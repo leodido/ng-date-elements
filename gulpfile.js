@@ -82,8 +82,8 @@ gulp.task('lint', 'Lint JS source files', [], function() {
 gulp.task('minify', false, [], function() {
   var isProduction = productionBuild(flags.env);
   var compilerFlags = {
-    closure_entry_point: 'leodido.dateElements',
-    compilation_level: 'ADVANCED_OPTIMIZATIONS',
+    closure_entry_point: 'leodido.Main',
+    compilation_level: 'ADVANCED_OPTIMIZATIONS', //FIXME: (feature1) 'SIMPLE_OPTIMIZATIONS',//
     language_in: 'ECMASCRIPT3',
     angular_pass: true,
     formatting: 'SINGLE_QUOTES',
@@ -97,7 +97,7 @@ gulp.task('minify', false, [], function() {
     warning_level: 'VERBOSE'
   };
   // if (!isProduction) {
-  //   compilerFlags.create_source_map = build.directory + '/' + build.filename + '.min.js.map';
+  //    compilerFlags.create_source_map = build.directory + '/' + build.filename + '.min.js.map';
   // }
 
   gulp.src(build.src)

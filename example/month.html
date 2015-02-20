@@ -18,7 +18,10 @@
 <body ng-app="app">
   <form name="form">
     <div data-ng-controller="Month01Controller">
-      <div data-month-select name="month01" class="form-control"></div>
+      <div
+        name="month01"
+        data-month-select
+        data-empty-option="MM"></div>
       <pre>form.month01 = {{ form.month01 | json }}</pre>
     </div>
   </form>
