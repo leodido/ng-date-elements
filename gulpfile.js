@@ -63,9 +63,9 @@ var build = {
     './bower_components/closure-angularjs-q_templated-externs/index.js',
     './bower_components/closure-angularjs-http-promise_templated-externs/index.js'
   ],
-  src: [
-    'bower_components/closure-library/closure/goog/base.js',
-    pack.directories.lib + '/*.js'
+  src: pack.directories.lib + '/*.js',
+  deps: [
+    'bower_components/closure-library/closure/goog/base.js'
   ]
 };
 
@@ -74,7 +74,7 @@ gulp.task('version', 'Print the library version', [], function() {
 });
 
 gulp.task('lint', 'Lint JS source files', [], function() {
-  return gulp.src(pack.directories.lib + '/*.js') // FIXME
+  return gulp.src(build.src)
     .pipe(jshint('./.jshintrc'))
     .pipe(jshint.reporter('default'));
 });
@@ -82,7 +82,7 @@ gulp.task('lint', 'Lint JS source files', [], function() {
 gulp.task('minify', false, [], function() {
   var isProduction = productionBuild(flags.env);
   var compilerFlags = {
-    closure_entry_point: 'leodido.dateElements',
+    closure_entry_point: 'leodido.Main',
     compilation_level: 'ADVANCED_OPTIMIZATIONS',
     language_in: 'ECMASCRIPT3',
     angular_pass: true,
@@ -97,10 +97,10 @@ gulp.task('minify', false, [], function() {
     warning_level: 'VERBOSE'
   };
   // if (!isProduction) {
-  //   compilerFlags.create_source_map = build.directory + '/' + build.filename + '.min.js.map';
+  //    compilerFlags.create_source_map = build.directory + '/' + build.filename + '.min.js.map';
   // }
 
-  gulp.src(build.src)
+  gulp.src(build.deps.concat(build.src))
     .pipe(debug({title: 'File: '}))
     .pipe(comp({
       compilerPath: build.compiler,
@@ -131,7 +131,7 @@ gulp.task('clean', 'Clean build directory', function(cb) {
 gulp.task('build', 'Build the library', [], function(cb) {
   sequence(
     'clean',
-    'lint', /*(productionBuild(flags.env) ? gutil.noop() : 'create-empty-sourcemap-file'),*/
+    'lint', /* (productionBuild(flags.env) ? gutil.noop() : 'create-empty-sourcemap-file'), */
     'minify',
     cb);
 }, {
@@ -152,4 +152,4 @@ gulp.task('default', false, ['help']);
 
 // TODO
 // [ ] - source map
-// [ ] - better beautified release file
+// [ ] - beautified release file
