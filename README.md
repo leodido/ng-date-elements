@@ -10,6 +10,7 @@ Date elements
 - MonthSelect
 - YearSelect
 - SelectComposite
+- ExpirySelect
 
 *WIP*
 
