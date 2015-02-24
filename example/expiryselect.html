@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ExpirySelect Directive</title>
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../dist/date-elements.min.js"></script>
+  <script>
+    var app = angular.module('app', ['leodido.dateElements']);
+    app.controller('ExpirySelectController', function ($scope) {
+      $scope.name = 'abc';
+    });
+  </script>
+</head>
+<body ng-app="app" ng-controller="ExpirySelectController">
+  <div
+    name="{{name}}"
+    data-expiry-select
+    data-ng-model="ee"
+    data-options="{month: {emptyOption: 'Month', format: 'MMM'}, year: {name: 'y', emptyOption: 'Year', format: 'yy', last: '2020'}}">
+    </div>
+    <!-- NOTE: first year ignored; it is always current year -->
+</body>
+</html>

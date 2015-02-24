@@ -8,21 +8,38 @@
   <script src="../dist/date-elements.min.js"></script>
   <script>
     var app = angular.module('app', ['leodido.dateElements']);
-    app.controller('Month01Controller', function($scope) {
-      $scope.$on('month01.selection', function(evt, data) {
-        console.log('month01::selection', data);
+    app.controller('MonthSelectsController', function($scope) {
+      $scope.myfmt = 'MMM';
+      $scope.myname1 = 'month01';
+      $scope.myname2 = 'month02';
+      $scope.myval = '1';
+      $scope.selected = 'Feb';
+      $scope.$on($scope.myname1 + '.selection', function(evt, data) {
+        console.log($scope.myname1 + '.selection', data);
+      });
+      $scope.$on($scope.myname2 + '.selection', function(evt, data) {
+        console.log($scope.myname2 + '.selection', data);
       });
     });
   </script>
 </head>
 <body ng-app="app">
   <form name="form">
-    <div data-ng-controller="Month01Controller">
+    <div data-ng-controller="MonthSelectsController">
       <div
-        name="month01"
-        data-month-select
-        data-empty-option="MM"></div>
+        data-name="{{myname1}}"
+        data-month-select="{{selected}}"
+        data-empty-option="MM"
+        data-format="{{myfmt}}"
+        ></div>
       <pre>form.month01 = {{ form.month01 | json }}</pre>
+      <div
+        data-name="{{myname2}}"
+        data-month-select
+        data-format="{{myfmt}}"
+        data-value="{{myval}}"
+        ></div>
+      <pre>form.month02 = {{ form.month02 | json }}</pre>
     </div>
   </form>
 </body>
