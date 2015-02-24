@@ -9,13 +9,17 @@
   <script>
     var app = angular.module('app', ['leodido.dateElements']);
     app.controller('Year01Controller', function($scope) {
+      $scope.name = 'year01';
       $scope.emp = 'ANNO';
-      $scope.fmt = 'yy';
-      $scope.fst = '2010';
-      $scope.lst = '2015';
+      $scope.fmt = 'yyyy';
+      $scope.fst = '1999';
+      $scope.lst = '2003';
 
       $scope.$on('year01.selection', function(evt, data) {
         console.log('year01.selection', data);
+      });
+      $scope.$on('year02.selection', function(evt, data) {
+        console.log('year02.selection', data);
       });
     });
   </script>
@@ -24,13 +28,22 @@
   <form name="form">
     <div data-ng-controller="Year01Controller">
       <div
-        name="year01"
+        name="{{name}}"
         data-year-select
         data-empty-option="{{emp}}"
         data-format="{{fmt}}"
         data-first="{{fst}}"
-        data-last="{{lst}}"></div>
+        data-last="{{lst}}"
+        ></div>
       <pre>form.year01 = {{ form.year01 | json }}</pre>
+      <div
+        name="year02"
+        data-year-select
+        data-empty-option="{{emp}}"
+        data-format="{{fmt}}"
+        data-first="{{fst}}"
+        ></div>
+      <pre>form.year02 = {{ form.year01 | json }}</pre>
     </div>
   </form>
 </body>

@@ -15,19 +15,20 @@
   <div
     name="monthyear"
     data-select-composite
-    data-options="{month: {emptyOption: 'mese', format: 'MM'}, year: {emptyOption: 'anno', format: 'yy', first: 2010, last: 2012}}">
+    data-options="{month: {emptyOption: 'Month', format: 'MMM'}, year: {emptyOption: 'Year', format: 'yyyy', first: '2015', last: '2020'}}">
     <div
       name="month"
       data-month-select
-      data-empty-option="{{options.month.emptyOption}}"
-      data-format="{{options.month.format}}"></div>
+      data-empty-option="{{::options.month.emptyOption}}"
+      data-format="{{::options.month.format}}"
+      ></div>
     <div
       name="year"
-      data-year-select
-      data-empty-option="{{options.year.emptyOption}}"
-      data-format="{{options.year.format}}"
-      data-first="{{options.year.first}}"
-      data-last="{{options.year.last}}"></div>
+      data-year-select=""
+      data-empty-option="{{::options.year.emptyOption}}"
+      data-format="{{::options.year.format}}"
+      data-first="{{::options.year.first}}"
+      data-last="{{::options.year.last}}"></div>
   </div>
 
 </body>
