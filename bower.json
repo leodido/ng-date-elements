@@ -4,7 +4,7 @@
   "authors": [
     "Leo Di Donato <leodidonato@gmail.com> (http://git.io/leodido)"
   ],
-  "main": "dist/date-elements.js",
+  "main": "date-elements.min.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

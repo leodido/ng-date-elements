@@ -59,7 +59,7 @@ Need help? Run `gulp help` !
 #   version                                 Print the library version
 ```
 
-To build a development version (logging not disabled) of JS lib:
+To build a development version (logging not disabled, sourcemaps file already linked) of JS lib:
 
 ```
 $ gulp build --env dev
