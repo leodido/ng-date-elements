@@ -158,7 +158,7 @@ gulp.task('bump', 'Bump version up for a new release', function () {
 });
 
 gulp.task('clean', 'Clean build directory', function(cb) {
-  return del([build.filename, build.filename + '.map'], cb);
+  del([build.filename, build.filename + '.map'], cb);
 });
 
 gulp.task('build', 'Build the library', [], function(cb) {
