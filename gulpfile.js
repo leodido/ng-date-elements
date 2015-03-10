@@ -12,9 +12,9 @@ var gulp = require('gulp'),
   connect = require('gulp-connect'),
   pack = require('./package.json'),
   banner = [
-    '/**',
+    '/*',
     ' * Copyright (c) ' + new Date().getFullYear() + ', ' + pack.author.name + ' <' + pack.author.email + '>',
-    ' * ' + pack.name + '.js - ' + pack.description,
+    ' * ' + pack.main + ' - ' + pack.description,
     ' * @version '+ pack.version,
     ' * @link ' + pack.homepage,
     ' * @license ' + pack.license,
@@ -56,8 +56,7 @@ var knownFlags = {
 
 var build = {
   compiler: './bower_components/closure-compiler/compiler.jar',
-  directory: './dist',
-  filename: 'date-elements',
+  filename: pack.main,
   externs: [
     './bower_components/closure-angularjs-externs/index.js',
     './bower_components/closure-angularjs-q_templated-externs/index.js',
@@ -70,7 +69,7 @@ var build = {
 };
 
 gulp.task('version', 'Print the library version', [], function() {
-  gutil.log('Library', gutil.colors.magenta(pack.name) + ',', gutil.colors.magenta(pack.version));
+  return gutil.log('Library', gutil.colors.magenta(pack.name) + ',', gutil.colors.magenta(pack.version));
 });
 
 gulp.task('lint', 'Lint JS source files', [], function() {
@@ -80,38 +79,76 @@ gulp.task('lint', 'Lint JS source files', [], function() {
 });
 
 gulp.task('minify', false, [], function() {
-  var isProduction = productionBuild(flags.env);
+  var isProduction = productionBuild(flags.env),
+      sourcemap = build.filename + '.map',
+      wrapper = (flags.banner ? banner + '\n': '') +
+                '(function(){%output%})();' +
+                (isProduction ? '' : '\n//# sourceMappingURL=' + sourcemap);
+
   var compilerFlags = {
-    closure_entry_point: 'leodido.Main',
+    // closure_entry_point: 'leodido.Main',
+    // only_closure_dependencies: true,
     compilation_level: 'ADVANCED_OPTIMIZATIONS',
     language_in: 'ECMASCRIPT3',
     angular_pass: true,
     formatting: 'SINGLE_QUOTES',
     externs: build.externs,
     generate_exports: true,
-    only_closure_dependencies: true,
     define: [
         'goog.DEBUG=' + (isProduction ? 'false' : 'true')
     ],
-    output_wrapper: (flags.banner ? banner + '\n': '') + '(function(){%output%})();',
+    output_wrapper: wrapper,
     warning_level: 'VERBOSE'
   };
-  // if (!isProduction) {
-  //    compilerFlags.create_source_map = build.directory + '/' + build.filename + '.min.js.map';
-  // }
+  if (!isProduction) {
+    compilerFlags.create_source_map = sourcemap;
+  }
 
-  gulp.src(build.deps.concat(build.src))
+  return gulp.src(build.deps.concat(build.src))
     .pipe(debug({title: 'File: '}))
     .pipe(comp({
       compilerPath: build.compiler,
-      fileName: build.filename + '.min.js',
+      fileName: build.filename,
       compilerFlags: compilerFlags
-    }))
-    .pipe(gulp.dest(build.directory));
+    }));
 });
 
+//gulp.task('prova', false, [], function () {
+//  var isProduction = productionBuild(flags.env);
+//  var wrapper = (flags.banner ? banner + '\n': '');
+//  wrapper += '(function(){';
+//  wrapper += '\n';
+//  wrapper += '%output%})();'; // +
+//  // (isProduction ? '' : '\n//# sourceMappingURL=' + sourcemap);
+//
+//  var compilerFlags = {
+////    closure_entry_point: 'leodido.Main',
+//    compilation_level: 'SIMPLE_OPTIMIZATIONS',
+//    language_in: 'ECMASCRIPT3',
+//    angular_pass: true,
+//    formatting: ['SINGLE_QUOTES', 'PRETTY_PRINT'],
+//    externs: build.externs,
+//    generate_exports: true,
+////    manage_closure_dependencies: true,
+////    only_closure_dependencies: true,
+//    define: [
+//        'goog.DEBUG=' + (isProduction ? 'false' : 'true')
+//    ],
+//    output_wrapper: wrapper
+////    warning_level: 'VERBOSE'
+//  };
+//
+//  return gulp.src(build.src) // build.deps.concat(build.src))
+//    .pipe(debug({title: 'File: '}))
+//    .pipe(comp({
+//      compilerPath: build.compiler,
+//      fileName: build.directory + '/' + build.filename,
+//      compilerFlags: compilerFlags
+//    }));
+//});
+
 gulp.task('bump', 'Bump version up for a new release', function () {
-  gulp.src(['./bower.json', 'package.json'])
+  return gulp.src(['./bower.json', 'package.json'])
     .pipe(bump({ type: getVersionLevel() }))
     .pipe(gulp.dest('./'));
 }, {
@@ -120,18 +157,14 @@ gulp.task('bump', 'Bump version up for a new release', function () {
   }
 });
 
-// gulp.task('create-empty-sourcemap-file', false, [], function () {
-//   return gfile(build.filename + '.min.js.map', '', { src: true }).pipe(gulp.dest(build.directory));
-// });
-
 gulp.task('clean', 'Clean build directory', function(cb) {
-  del(build.directory, cb);
+  del([build.filename, build.filename + '.map'], cb);
 });
 
 gulp.task('build', 'Build the library', [], function(cb) {
-  sequence(
+  return sequence(
     'clean',
-    'lint', /* (productionBuild(flags.env) ? gutil.noop() : 'create-empty-sourcemap-file'), */
+    'lint',
     'minify',
     cb);
 }, {
@@ -151,5 +184,4 @@ gulp.task('connect', 'Create a server', function () {
 gulp.task('default', false, ['help']);
 
 // TODO
-// [ ] - source map
 // [ ] - beautified release file

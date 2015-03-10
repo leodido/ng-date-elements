@@ -36,6 +36,8 @@ $ cd ng-date-elements/
 $ npm install
 ```
 
+Otherwise you can simply grab `date-elements.min.js` file in the repository root, and include it together with angular (~1.3) in your HTML page.
+
 Build
 -----
 
@@ -59,7 +61,7 @@ Need help? Run `gulp help` !
 #   version                                 Print the library version
 ```
 
-To build a development version (logging not disabled) of JS lib:
+To build a development version (logging not disabled, sourcemaps file) of JS lib:
 
 ```
 $ gulp build --env dev

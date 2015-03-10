@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YearSelect Directive</title>
   <script src="../bower_components/angular/angular.js"></script>
-  <script src="../dist/date-elements.min.js"></script>
+  <script src="../date-elements.min.js"></script>
   <script>
     var app = angular.module('app', ['leodido.dateElements']);
     app.controller('Year01Controller', function($scope) {
       $scope.name = 'year01';
       $scope.emp = 'ANNO';
       $scope.fmt = 'yyyy';
-      $scope.fst = '1999';
+      $scope.fst = 1999;
       $scope.lst = '2003';
 
       $scope.$on('year01.selection', function(evt, data) {
@@ -28,22 +28,23 @@
   <form name="form">
     <div data-ng-controller="Year01Controller">
       <div
-        name="{{name}}"
+        data-name="{{name}}"
         data-year-select
         data-empty-option="{{emp}}"
         data-format="{{fmt}}"
         data-first="{{fst}}"
         data-last="{{lst}}"
         ></div>
-      <pre>form.year01 = {{ form.year01 | json }}</pre>
+      <pre>form.year01 = {{ form['year01'] | json }}</pre>
       <div
-        name="year02"
+        data-name="year02"
         data-year-select
-        data-empty-option="{{emp}}"
-        data-format="{{fmt}}"
+        data-empty-option="YY"
+        data-format="yy"
         data-first="{{fst}}"
+        value="{{fst + 1}}"
         ></div>
-      <pre>form.year02 = {{ form.year01 | json }}</pre>
+      <pre>form.year02 = {{ form['year02'] | json }}</pre>
     </div>
   </form>
 </body>

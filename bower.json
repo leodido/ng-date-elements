@@ -1,10 +1,11 @@
 {
   "name": "ng-date-elements",
-  "version": "0.3.0",
+  "description": "AngularJS directives for date elements",
+  "version": "0.4.0",
   "authors": [
     "Leo Di Donato <leodidonato@gmail.com> (http://git.io/leodido)"
   ],
-  "main": "dist/date-elements.js",
+  "main": "date-elements.min.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

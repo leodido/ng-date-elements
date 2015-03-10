@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MonthSelect Directive</title>
   <script src="../bower_components/angular/angular.js"></script>
-  <script src="../dist/date-elements.min.js"></script>
+  <script src="../date-elements.min.js"></script>
   <script>
     var app = angular.module('app', ['leodido.dateElements']);
     app.controller('MonthSelectsController', function($scope) {
-      $scope.myfmt = 'MMM';
+      $scope.myfmt1 = 'MMM';
+      $scope.myfmt2 = 'MM';
       $scope.myname1 = 'month01';
       $scope.myname2 = 'month02';
-      $scope.myval = '1';
-      $scope.selected = 'Feb';
+      $scope.myval2 = '3'; // NOTE: specify by value
+      $scope.selected = 'Feb'; // NOTE: specify by label
       $scope.$on($scope.myname1 + '.selection', function(evt, data) {
         console.log($scope.myname1 + '.selection', data);
       });
@@ -30,14 +31,14 @@
         data-name="{{myname1}}"
         data-month-select="{{selected}}"
         data-empty-option="MM"
-        data-format="{{myfmt}}"
+        data-format="{{myfmt1}}"
         ></div>
       <pre>form.month01 = {{ form.month01 | json }}</pre>
       <div
         data-name="{{myname2}}"
         data-month-select
-        data-format="{{myfmt}}"
-        data-value="{{myval}}"
+        data-format="{{myfmt2}}"
+        value="{{myval2}}"
         ></div>
       <pre>form.month02 = {{ form.month02 | json }}</pre>
     </div>
